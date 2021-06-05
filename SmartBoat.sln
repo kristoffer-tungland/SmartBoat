@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBoat.API", "SmartBoat.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBoat.Infrastructure", "SmartBoat.Infrastructure\SmartBoat.Infrastructure.csproj", "{C5367C92-D2A0-4A98-99B6-A9DE1370D7D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBoat.Web", "SmartBoat.Web\SmartBoat.Web.csproj", "{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C5367C92-D2A0-4A98-99B6-A9DE1370D7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5367C92-D2A0-4A98-99B6-A9DE1370D7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5367C92-D2A0-4A98-99B6-A9DE1370D7D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
