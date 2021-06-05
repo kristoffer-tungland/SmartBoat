@@ -4,7 +4,6 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'DefaultBlazor.Server' " />
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="5.0.10" />
     <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.2" />
