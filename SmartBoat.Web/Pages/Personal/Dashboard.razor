@@ -1,13 +1,16 @@
 ﻿@page "/personal/dashboard"
 
+<link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+
 <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">Dashboard</MudText>
 <MudGrid>
     <MudItem xs="12" sm="6" md="3">
         <MudPaper Elevation="25" Class="d-flex flex-row pt-6 pb-4" Style="height:100px;">
-            <MudIcon Icon="@Icons.Material.Filled.Public" Color="Color.Secondary" Class="mx-4" Style="width:54px; height:54px;"></MudIcon>
+            <MudIcon Icon="fas fa-temperature-high" Size="Size.Large" Color="Color.Secondary" Class="mx-4" />
             <div>
-                <MudText Typo="Typo.subtitle1" Class="mud-text-secondary mb-n1">Total Income</MudText>
-                <MudText Typo="Typo.h5">125,000</MudText>
+                <MudText Typo="Typo.subtitle1"
+                         Class="mud-text-secondary mb-n1">Temperature</MudText>
+                <MudText Typo="Typo.h5">22 deg</MudText>
             </div>
         </MudPaper>
     </MudItem>

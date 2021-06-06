@@ -11,7 +11,9 @@
             <MudIcon Icon="@Icons.Custom.Brands.MudBlazor" Size="Size.Large" />
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.MdAndUp">
-            <MudIconButton Icon="@Icons.Material.Outlined.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Menu"
+                           Color="Color.Inherit" Edge="Edge.Start"
+                           OnClick="@((e) => DrawerToggle())" />
         </MudHidden>
         <MudHidden Breakpoint="Breakpoint.Xs">
             <MudText Typo="Typo.h6" Class="ml-4">Admin Dashboard</MudText>
@@ -25,10 +27,17 @@
             <MudMenuItem>Swedish</MudMenuItem>
             <MudMenuItem>Old Norse</MudMenuItem>
         </MudMenu>
-        <MudMenu Icon="@Icons.Material.Outlined.Widgets" Color="Color.Inherit" Direction="Direction.Bottom" OffsetY="true" Dense="true">
+        <MudMenu Icon="@Icons.Material.Outlined.Widgets"
+                 Color="Color.Inherit" Direction="Direction.Bottom"
+                 OffsetY="true" Dense="true">
             <MudMenuItem Link="https://mudblazor.com/">MudBlazor</MudMenuItem>
             <MudMenuItem Link="https://github.com/Garderoben/MudBlazor.Templates">Source Code</MudMenuItem>
         </MudMenu>
+
+        <MudIconButton Icon="@_darkIcon"
+                       Color="Color.Inherit" Edge="Edge.Start"
+                       @onclick="@((e) => DarkMode())" />
+
         <MudMenu Direction="Direction.Left" OffsetX="true" Dense="true" Class="mt-1 ml-4">
             <ActivatorContent>
                 <MudAvatar Image="images/avatar_jonny.jpg" />
@@ -69,10 +78,33 @@
 
     public bool _drawerOpen = true;
     public bool _themeManagerOpen = false;
+    public bool _isDarkMode = false;
+    public string _darkIcon = Icons.Material.Outlined.Bedtime;
 
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
+    }
+
+    void DarkMode()
+    {
+        _isDarkMode = !_isDarkMode;
+
+        UpdateDarkMode();
+    }
+
+    void UpdateDarkMode()
+    {
+        if (_isDarkMode)
+        {
+            _darkIcon = Icons.Material.Outlined.WbSunny;
+            _themeManager.Theme = darkTheme;
+        }
+        else
+        {
+            _darkIcon = Icons.Material.Outlined.Bedtime;
+            _themeManager.Theme = _lightTheme;
+        }
     }
 
     void OpenThemeManager(bool value)
@@ -88,15 +120,44 @@
 
     protected override void OnInitialized()
     {
-        _themeManager.Theme = new MudBlazorSmartBoat();
+        _themeManager.Theme = _lightTheme;
         _themeManager.DrawerClipMode = DrawerClipMode.Always;
         _themeManager.FontFamily = "Montserrat";
         _themeManager.DefaultBorderRadius = 3;
     }
 
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-{
+    {
         new BreadcrumbItem("Personal", href: "#"),
         new BreadcrumbItem("Dashboard", href: "#"),
+    };
+
+    MudTheme _lightTheme = new MudBlazorSmartBoat();
+
+    MudTheme darkTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Black = "#27272f",
+            Background = "#32333d",
+            BackgroundGrey = "#27272f",
+            Surface = "#373740",
+            DrawerBackground = "#27272f",
+            DrawerText = "rgba(255,255,255, 0.50)",
+            DrawerIcon = "rgba(255,255,255, 0.50)",
+            AppbarBackground = "#27272f",
+            AppbarText = "rgba(255,255,255, 0.70)",
+            TextPrimary = "rgba(255,255,255, 0.70)",
+            TextSecondary = "rgba(255,255,255, 0.50)",
+            ActionDefault = "#adadb1",
+            ActionDisabled = "rgba(255,255,255, 0.26)",
+            ActionDisabledBackground = "rgba(255,255,255, 0.12)",
+            Divider = "rgba(255,255,255, 0.12)",
+            DividerLight = "rgba(255,255,255, 0.06)",
+            TableLines = "rgba(255,255,255, 0.12)",
+            LinesDefault = "rgba(255,255,255, 0.12)",
+            LinesInputs = "rgba(255,255,255, 0.3)",
+            TextDisabled = "rgba(255,255,255, 0.2)"
+        }
     };
 }
