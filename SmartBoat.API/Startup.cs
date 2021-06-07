@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SmartBoat.Infrastructure.Extensions;
 using SmartBoat.Infrastructure.Settings;
+using Microsoft.AspNetCore.ResponseCompression;
+using SmartBoat.Infrastructure.Hubs;
 
 namespace SmartBoat.API
 {
@@ -38,11 +40,19 @@ namespace SmartBoat.API
             services.AddControllers();
 
             services.AddSwaggerGen();
+            services.AddSignalR();
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -67,6 +77,7 @@ namespace SmartBoat.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SensorHub>("/sensorData");
             });
         }
     }

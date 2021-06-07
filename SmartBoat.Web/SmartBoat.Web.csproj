@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="5.0.10" />
     <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,8 +17,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Clients\" />
+    <None Remove="Microsoft.AspNetCore.SignalR.Client" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Clients\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

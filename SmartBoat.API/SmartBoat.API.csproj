@@ -1,14 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <UserSecretsId>95a5c68f-4ad8-485b-ac70-3ee8e02c6ec9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Swashbuckle.AspNetCore" />
+    <None Remove="Microsoft.AspNetCore.SignalR.Client" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartBoat.Infrastructure\SmartBoat.Infrastructure.csproj">

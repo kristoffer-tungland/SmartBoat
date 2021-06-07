@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using SmartBoat.Infrastructure.Services;
 using SmartBoat.Shared.Models;
@@ -11,16 +13,20 @@ using SmartBoat.Shared.Models;
 namespace SmartBoat.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
     public class MeasurementController : ControllerBase
     {
         private readonly ILogger<MeasurementController> _logger;
         private readonly IMeasurementService measurementService;
+        private HubConnection hubConnection;
 
         public MeasurementController(ILogger<MeasurementController> logger, IMeasurementService measurementService)
         {
             _logger = logger;
             this.measurementService = measurementService;
+            hubConnection = new HubConnectionBuilder()
+            .WithUrl(new Uri("https://localhost:5001/sensorData"))
+            .Build();
         }
 
         [HttpGet]
@@ -52,6 +58,8 @@ namespace SmartBoat.API.Controllers
             {
                 var measurement = await measurementService.AddMeasurement(args);
 
+                await OnSensorUpdate(measurement);
+
                 return CreatedAtRoute(nameof(GetMeasurement), new { measurement.Id }, measurement);
             }
             catch (Exception ex)
@@ -59,6 +67,14 @@ namespace SmartBoat.API.Controllers
                 return BadRequest(ex.Message);
             }
             
+        }
+
+        private async Task OnSensorUpdate(Measurement measurement)
+        {
+            if (hubConnection.State == HubConnectionState.Disconnected)
+                await hubConnection.StartAsync();
+
+            await hubConnection.SendAsync("SenorUpdate", measurement.Id, measurement.Value);
         }
 
         [HttpGet("{id}", Name = nameof(GetMeasurement))]

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
 using SmartBoat.Web.Clients;
+using SmartBoat.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace SmartBoat.Web.Server
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddMudServices();
+
+            services.AddTransient<ISensorService, SensorService>();
 
             services.AddHttpClient<SmartBoatClient>();
         }
