@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SmartBoat.Infrastructure;
-using SmartBoat.Infrastructure.Measurement;
+using SmartBoat.Infrastructure.Services;
+using SmartBoat.Shared.Models;
 
 namespace SmartBoat.API.Controllers
 {
@@ -47,7 +46,7 @@ namespace SmartBoat.API.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(Measurement),StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(string),StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddMeasurement([FromQuery]AddMeasurementArgs args)
+        public async Task<IActionResult> AddMeasurement(AddMeasurementArgs args)
         {
             try
             {
@@ -67,7 +66,7 @@ namespace SmartBoat.API.Controllers
         [ProducesResponseType(typeof(Measurement), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetMeasurement(Guid id)
+        public async Task<IActionResult> GetMeasurement(string id)
         {
             try
             {

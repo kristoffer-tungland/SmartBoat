@@ -1,6 +1,7 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using SmartBoat.Infrastructure.Measurement;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SmartBoat.Infrastructure.Repository;
+using SmartBoat.Infrastructure.Services;
+using SmartBoat.Infrastructure.Settings;
 
 namespace SmartBoat.Infrastructure.Extensions
 {
@@ -9,8 +10,9 @@ namespace SmartBoat.Infrastructure.Extensions
         public static void AddSmartBoatServices(this IServiceCollection services)
         {
             services
-                .AddScoped<IMeasurementService, MeasurementService>()
-                .AddSingleton<IMeasurementRepository, MeasurementRepository>()
+                .AddAutoMapper(typeof(AutoMapperProfiles))
+                .AddTransient<IMeasurementService, MeasurementService>()
+                .AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>))
                 ;
         }
     }

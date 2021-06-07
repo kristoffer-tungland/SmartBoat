@@ -1,4 +1,6 @@
 ﻿@page "/personal/dashboard"
+@using SmartBoat.Shared.Models;
+@inject SmartBoatClient Client;
 
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
@@ -10,7 +12,7 @@
             <div>
                 <MudText Typo="Typo.subtitle1"
                          Class="mud-text-secondary mb-n1">Temperature</MudText>
-                <MudText Typo="Typo.h5">22 deg</MudText>
+                <MudText Typo="Typo.h5">@Measurement?.Value</MudText>
             </div>
         </MudPaper>
     </MudItem>
@@ -140,14 +142,24 @@
     </MudItem>
 </MudGrid>
 
-@code {
+@code
+{
+    public Measurement Measurement { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Measurement = await Client.GetMeasurement();
+
+        await base.OnInitializedAsync();
+    }
+
 
     EarningReport[] earningReports = new EarningReport[]
-    {
+{
         new EarningReport { Name = "Lunees", Title = "Reactor Engineer", Avatar = "https://avatars2.githubusercontent.com/u/71094850?s=460&u=66c16f5bb7d27dc751f6759a82a3a070c8c7fe4b&v=4", Salary = "$0.99", Severity = Color.Success, SeverityTitle = "Low"},
         new EarningReport { Name = "Mikes-gh", Title = "Developer", Avatar = "https://avatars.githubusercontent.com/u/16208742?s=120&v=4", Salary = "$19.12K", Severity = Color.Secondary, SeverityTitle = "Medium"},
         new EarningReport { Name = "Garderoben", Title = "CSS Magician", Avatar = "https://avatars2.githubusercontent.com/u/10367109?s=460&amp;u=2abf95f9e01132e8e2915def42895ffe99c5d2c6&amp;v=4", Salary = "$1337", Severity = Color.Primary, SeverityTitle = "High"},
-    };
+};
 
     class EarningReport
     {

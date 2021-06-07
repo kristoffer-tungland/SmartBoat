@@ -14,5 +14,8 @@
     <ProjectReference Include="..\SmartBoat.Infrastructure\SmartBoat.Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\SmartBoat.Shared\SmartBoat.Shared.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBoat.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBoat.Web", "SmartBoat.Web\SmartBoat.Web.csproj", "{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBoat.Shared", "SmartBoat.Shared\SmartBoat.Shared.csproj", "{257F1367-DE33-491F-BE6D-279BC8D00675}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A1FCE94-FD4C-43BA-9099-FA252B8150B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257F1367-DE33-491F-BE6D-279BC8D00675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257F1367-DE33-491F-BE6D-279BC8D00675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257F1367-DE33-491F-BE6D-279BC8D00675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257F1367-DE33-491F-BE6D-279BC8D00675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,12 +8,31 @@
     <None Remove="Measurement\" />
     <None Remove="Extensions\" />
     <None Remove="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <None Remove="Repository\" />
+    <None Remove="MongoDB.Driver" />
+    <None Remove="Settings\" />
+    <None Remove="Models\" />
+    <None Remove="Attributes\" />
+    <None Remove="AutoMapper" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Converters\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Measurement\" />
+    <Folder Include="Services\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Settings\" />
+    <Folder Include="Models\" />
+    <Folder Include="Attributes\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.12.4" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBoat.Shared\SmartBoat.Shared.csproj" />
   </ItemGroup>
 </Project>

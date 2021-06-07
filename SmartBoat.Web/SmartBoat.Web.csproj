@@ -9,4 +9,15 @@
     <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBoat.Shared\SmartBoat.Shared.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Clients\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Clients\" />
+  </ItemGroup>
 </Project>
