@@ -18,6 +18,9 @@
     <None Remove="Converters\" />
     <None Remove="Microsoft.AspNetCore.SignalR.Core" />
     <None Remove="Hubs\" />
+    <None Remove="Models\Identity\" />
+    <None Remove="AspNetCore.Identity.Mongo" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -28,6 +31,7 @@
     <Folder Include="Attributes\" />
     <Folder Include="Converters\" />
     <Folder Include="Hubs\" />
+    <Folder Include="Models\Identity\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
@@ -35,6 +39,8 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+    <PackageReference Include="AspNetCore.Identity.Mongo" Version="8.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartBoat.Shared\SmartBoat.Shared.csproj" />

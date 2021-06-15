@@ -12,6 +12,7 @@ namespace SmartBoat.Infrastructure.Extensions
             services
                 .AddAutoMapper(typeof(AutoMapperProfiles))
                 .AddTransient<IMeasurementService, MeasurementService>()
+                .AddTransient<IBoatService, BoatService>()
                 .AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>))
                 ;
         }

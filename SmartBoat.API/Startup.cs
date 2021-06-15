@@ -30,11 +30,15 @@ namespace SmartBoat.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
+            services.Configure<MongoDbSettings>(Configuration.GetSection(MongoDbSettings.Field));
 
             services.AddSingleton<IMongoDbSettings>(serviceProvider =>
                 serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
 
+            var mongoDBSettings = new MongoDbSettings();
+            Configuration.GetSection(MongoDbSettings.Field).Bind(mongoDBSettings);
+
+            services.AddMongoIdentity(mongoDBSettings);
             services.AddSmartBoatServices();
 
             services.AddControllers();

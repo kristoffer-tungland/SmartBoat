@@ -8,10 +8,12 @@
   <ItemGroup>
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Microsoft.AspNetCore.SignalR.Client" />
+    <None Remove="AspNetCore.Identity.Mongo" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />
+    <PackageReference Include="AspNetCore.Identity.Mongo" Version="8.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SmartBoat.Infrastructure\SmartBoat.Infrastructure.csproj">
