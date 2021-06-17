@@ -1,6 +1,11 @@
 ﻿@page "/"
 @page "/pages/authentication/login"
 @layout LoginLayout
+@using SmartBoat.Web.Services;
+@using System.Threading;
+@using SmartBoat.Web.Providers;
+@inject IUserService UserService;
+@inject SmartBoat.Web.Providers.CustomAuthenticationStateProvider StateProvider;
 
 
 
@@ -8,7 +13,7 @@
 
 <MudText>Don't have an account? <MudLink Href="/pages/authentication/register">Sign Up</MudLink></MudText>
 
-<MudTextField T="string" Value="@("staff@mudblazor.com")" Label="E-mail" Variant="Variant.Outlined" Class="my-6"></MudTextField>
+<MudTextField T="string" @bind-Value="@Email" Label="E-mail" Variant="Variant.Outlined" Class="my-6"></MudTextField>
 
 <MudTextField @bind-Value="@Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" />
 
@@ -17,11 +22,15 @@
     <MudLink Href="/pages/authentication/forgot-password">Forgot pwd?</MudLink>
 </div>
 
+<MudText>@Tolken</MudText>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" Link="/personal/dashboard" Size="Size.Large" FullWidth="true">Sign In</MudButton>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnLogin" Size="Size.Large" FullWidth="true">Sign In</MudButton>
 
 @code {
-    string Password { get; set; } = "BMWvBPJXZu";
+    string Email { get; set; }
+    string Password { get; set; }
+
+    public string Tolken { get; set; }
 
     bool PasswordVisibility;
     InputType PasswordInput = InputType.Password;
@@ -40,6 +49,30 @@
             PasswordVisibility = true;
             PasswordInputIcon = Icons.Material.Filled.Visibility;
             PasswordInput = InputType.Text;
+        }
+    }
+
+    async Task OnLogin()
+    {
+        try
+        {
+            Console.WriteLine("Email: " + Email);
+            Console.WriteLine("Password: " + Password);
+
+            var response = await UserService.Login(new SmartBoat.Shared.Authentication.LoginRequest
+            {
+                Email = Email,
+                Password = Password
+            }, CancellationToken.None);
+
+            var authenticationState = await StateProvider.GetAuthenticationStateAsync();
+
+            Tolken = authenticationState.User.FindFirst("Name").Value;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            Tolken = ex.Message;
         }
     }
 }

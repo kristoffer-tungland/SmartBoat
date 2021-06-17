@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SmartBoat.Infrastructure.Repository;
 using SmartBoat.Infrastructure.Services;
+using SmartBoat.Infrastructure.Services.Users;
 using SmartBoat.Infrastructure.Settings;
 
 namespace SmartBoat.Infrastructure.Extensions
@@ -13,6 +14,7 @@ namespace SmartBoat.Infrastructure.Extensions
                 .AddAutoMapper(typeof(AutoMapperProfiles))
                 .AddTransient<IMeasurementService, MeasurementService>()
                 .AddTransient<IBoatService, BoatService>()
+                .AddTransient<IUserService, UserService>()
                 .AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>))
                 ;
         }

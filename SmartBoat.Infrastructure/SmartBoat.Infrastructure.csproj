@@ -21,6 +21,8 @@
     <None Remove="Models\Identity\" />
     <None Remove="AspNetCore.Identity.Mongo" />
     <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Services\Users\" />
+    <None Remove="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
@@ -32,6 +34,8 @@
     <Folder Include="Converters\" />
     <Folder Include="Hubs\" />
     <Folder Include="Models\Identity\" />
+    <Folder Include="Services\Users\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />

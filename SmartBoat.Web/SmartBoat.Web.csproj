@@ -8,6 +8,7 @@
     <PackageReference Include="MudBlazor" Version="5.0.10" />
     <PackageReference Include="MudBlazor.ThemeManager" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,9 +20,14 @@
     <None Remove="Clients\" />
     <None Remove="Microsoft.AspNetCore.SignalR.Client" />
     <None Remove="Services\" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <None Remove="Providers\" />
+    <None Remove="Handlers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Clients\" />
     <Folder Include="Services\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Handlers\" />
   </ItemGroup>
 </Project>

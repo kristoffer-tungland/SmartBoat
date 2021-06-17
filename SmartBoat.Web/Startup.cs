@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MudBlazor.Services;
 using SmartBoat.Web.Clients;
+using SmartBoat.Web.Handlers;
+using SmartBoat.Web.Providers;
 using SmartBoat.Web.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SmartBoat.Web.Server
 {
@@ -32,9 +29,17 @@ namespace SmartBoat.Web.Server
             services.AddServerSideBlazor();
             services.AddMudServices();
 
-            services.AddTransient<ISensorService, SensorService>();
+            services.AddTransient<AuthenticationHttpMessageHandler>();
+            services.AddHttpClient<ISmartBoatClient, SmartBoatClient>().AddHttpMessageHandler<AuthenticationHttpMessageHandler>();
 
-            services.AddHttpClient<SmartBoatClient>();
+            services.AddAuthorizationCore();
+
+            services.AddTransient<CustomAuthenticationStateProvider, CustomAuthenticationStateProvider>();
+            services.AddTransient<AuthenticationStateProvider>(
+              p => p.GetService<CustomAuthenticationStateProvider>());
+
+            services.AddTransient<ISensorService, SensorService>();
+            services.AddTransient<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
