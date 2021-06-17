@@ -1,9 +1,11 @@
 ﻿@page "/"
-@page "/pages/authentication/login/{text?}"
+@page "/pages/authentication/login"
 @layout LoginLayout
 @using SmartBoat.Web.Services;
 @using System.Threading;
 @using SmartBoat.Web.Providers;
+
+@inject ISnackbar Snackbar
 @inject IUserService UserService;
 @inject CustomAuthenticationStateProvider StateProvider;
 
@@ -27,35 +29,6 @@
 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnLogin" Size="Size.Large" FullWidth="true">Sign In</MudButton>
 
 @code {
-    [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
-
-    [Parameter]
-    public string Text { get; set; }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        if (Text == "logout")
-            await UserService.Logout();
-
-        await StateProvider.GetAuthenticationStateAsync();
-
-        var authState = await authenticationStateTask;
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            Tolken = $"{user.Identity.Name} is authenticated.";
-        }
-        else
-        {
-            Tolken = "The user is NOT authenticated.";
-        }
-
-        await base.OnParametersSetAsync();
-    }
-
-
     string Email { get; set; }
     string Password { get; set; }
 
@@ -94,14 +67,21 @@
                 Password = Password
             }, CancellationToken.None);
 
+            var authenticationState = await StateProvider.GetAuthenticationStateAsync();
+
+            StateProvider.NotifyAuthenticationStateChanged();
+
+            StateHasChanged();
+
             NavigationManager.NavigateTo("/personal/dashboard");
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+            Snackbar.Add(ex.Message);
             Tolken = ex.Message;
         }
-        
+
         //try
         //{
         //    var authenticationState = await StateProvider.GetAuthenticationStateAsync();

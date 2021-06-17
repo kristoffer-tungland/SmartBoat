@@ -67,10 +67,11 @@ namespace SmartBoat.Infrastructure.Services.Users
             var user = await _userManager.GetUserAsync(claimsPrincipal);
             var userData = new UserDataResponse
             {
-                Name = user.UserName,
+                Name = user.Name,
                 LastName = user.LastName,
                 City = user.City,
-                Email = user.Email
+                Email = user.Email,
+                UserName = user.UserName
             };
 
             return userData;

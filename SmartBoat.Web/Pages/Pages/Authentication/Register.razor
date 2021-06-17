@@ -1,43 +1,82 @@
 ﻿@page "/pages/authentication/register"
+@using SmartBoat.Shared.Authentication
+@using SmartBoat.Web.Services
+@using InputType = MudBlazor.InputType
+@using System.Threading
+@using SmartBoat.Web.Providers
 @layout LoginLayout
 
-
+@inject ISnackbar Snackbar;
+@inject IUserService UserService;
+@inject ITokenService TokenService;
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider;
+@inject NavigationManager NavigationManager;
 
 
 <MudText Typo="Typo.h4" GutterBottom="true">Sign Up</MudText>
 <MudText>Already have an account? <MudLink Href="/pages/authentication/login">Sign In</MudLink></MudText>
+<EditForm Model="@RegisterRequest" OnValidSubmit="@(async () => await OnRegister())">
+    <DataAnnotationsValidator />
+    <MudTextField @bind-Value="@RegisterRequest.Name" For="@(() => RegisterRequest.Name)" Label="First name" Variant="Variant.Outlined" Class="my-4"></MudTextField>
+    <MudTextField @bind-Value="@RegisterRequest.LastName" For="@(() => RegisterRequest.LastName)" Label="Last name" Variant="Variant.Outlined" Class="my-4"></MudTextField>
 
-<MudTextField T="string" Label="Username" Variant="Variant.Outlined" Class="my-4"></MudTextField>
+    <MudTextField @bind-Value="@RegisterRequest.Email" For="@(() => RegisterRequest.Email)" Label="E-mail" Variant="Variant.Outlined"></MudTextField>
 
-<MudTextField T="string" Label="E-mail" Variant="Variant.Outlined"></MudTextField>
+    <MudTextField @bind-Value="@RegisterRequest.Password" For="@(() => RegisterRequest.Password)" Label="Password" Variant="Variant.Outlined" InputType="@_passwordInput" Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="TogglePasswordVisibility" Class="mt-4" />
+    <MudTextField @bind-Value="@RegisterRequest.ConfirmPassword" For="@(() => RegisterRequest.Password)" Label="Confirm password" Variant="Variant.Outlined" InputType="@_passwordInput" Adornment="Adornment.End" AdornmentIcon="@_passwordInputIcon" OnAdornmentClick="TogglePasswordVisibility" Class="mt-4" />
 
-<MudTextField @bind-Value="@Password" Label="Password" Variant="Variant.Outlined" InputType="@PasswordInput" Adornment="Adornment.End" AdornmentIcon="@PasswordInputIcon" OnAdornmentClick="TogglePasswordVisibility" Class="mt-4"/>
+    <MudTextField @bind-Value="@RegisterRequest.City" For="@(() => RegisterRequest.City)" Label="City" Variant="Variant.Outlined" Class="my-4"></MudTextField>
 
-<MudCheckBox @bind-Checked="@AgreeToTerms" Label="I agree to the terms and privacy" Color="Color.Primary" Class="ml-n1 my-3"></MudCheckBox>
+    <MudCheckBox @bind-Checked="@AgreeToTerms" Label="I agree to the terms and privacy" Color="Color.Primary" Class="ml-n1 my-3"></MudCheckBox>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!AgreeToTerms)" Link="/pages/authentication/login" Size="Size.Large" FullWidth="true">Register</MudButton>
-
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!AgreeToTerms)" Size="Size.Large" FullWidth="true">Register</MudButton>
+</EditForm>
 @code {
-    string Password { get; set; }
+
+    public RegisterRequest RegisterRequest { get; set; } = new();
+    bool _success;
+
     public bool AgreeToTerms { get; set; }
 
-    bool PasswordVisibility;
-    InputType PasswordInput = InputType.Password;
-    string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
+    bool _passwordVisibility;
+    InputType _passwordInput = InputType.Password;
+    string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+
+
+    private async Task OnRegister()
+    {
+        try
+        {
+            var response = await UserService.Register(RegisterRequest, CancellationToken.None);
+
+            await TokenService.SetTokenAsync(response.Token);
+
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+
+            AuthenticationStateProvider.NotifyAuthenticationStateChanged();
+
+            NavigationManager.NavigateTo("/personal/dashboard");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            Snackbar.Add(e.Message);
+        }
+    }
 
     void TogglePasswordVisibility()
     {
-        @if (PasswordVisibility)
+        @if (_passwordVisibility)
         {
-            PasswordVisibility = false;
-            PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-            PasswordInput = InputType.Password;
+            _passwordVisibility = false;
+            _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
+            _passwordInput = InputType.Password;
         }
         else
         {
-            PasswordVisibility = true;
-            PasswordInputIcon = Icons.Material.Filled.Visibility;
-            PasswordInput = InputType.Text;
+            _passwordVisibility = true;
+            _passwordInputIcon = Icons.Material.Filled.Visibility;
+            _passwordInput = InputType.Text;
         }
     }
 }

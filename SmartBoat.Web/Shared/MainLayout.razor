@@ -48,7 +48,7 @@
                         <PersonCard Class="mt-n2" />
                         <MudDivider Class="mb-2" />
                         <MudListItem Text="Account" Icon="@Icons.Material.Outlined.Person" Href="/personal/account" />
-                        <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/pages/authentication/login/logout" />
+                        <MudListItem Text="Logout" Icon="@Icons.Material.Outlined.Login" Href="/pages/authentication/logout" />
                     </ChildContent>
                 </MudMenu>
             </MudAppBar>
@@ -76,7 +76,12 @@
         <p>You can only see this content while authentication is in progress.</p>
     </Authorizing>
     <NotAuthorized>
-        <MudLink Href="/">Login</MudLink>
+        <LayoutView Layout="typeof(LoginLayout)">
+            <NotLoggedIn />
+        </LayoutView>
+        
+
+
     </NotAuthorized>
 </AuthorizeView>
 
@@ -140,7 +145,7 @@
     }
 
     private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-    {
+{
         new BreadcrumbItem("Personal", href: "#"),
         new BreadcrumbItem("Dashboard", href: "#"),
     };

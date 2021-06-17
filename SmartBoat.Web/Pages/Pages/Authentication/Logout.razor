@@ -1,0 +1,41 @@
+﻿@page "/pages/authentication/logout"
+@using SmartBoat.Web.Services
+@using SmartBoat.Web.Providers
+@layout LoginLayout
+
+@inject IUserService UserService;
+@inject CustomAuthenticationStateProvider CustomAuthenticationStateProvider;
+
+<AuthorizeView>
+    <Authorized>
+        <h1>Logging out</h1>
+    </Authorized>
+    <Authorizing>
+        <h1>Authentication in progress</h1>
+        <p>You can only see this content while authentication is in progress.</p>
+    </Authorizing>
+    <NotAuthorized>
+            <NotLoggedIn />
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await UserService.Logout();
+
+            await Task.Delay(1000);
+
+            NavigationManager.NavigateTo("/");
+        }
+        
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+}

@@ -56,7 +56,7 @@ namespace SmartBoat.Web.Services
             var result = await _httpClient.PostJsonAsync("/api/v1/User/Register", model, await _tokenService.GetAuthentication(),cancellationToken);
 
             if (!result.IsSuccessStatusCode)
-                throw new Exception("Failed to register");
+                throw new Exception("Failed to register " + await result.Content.ReadAsStringAsync(cancellationToken));
 
             return await result.Content.ReadFromJsonAsync<SignUpResponse>(cancellationToken: cancellationToken);
         }

@@ -84,5 +84,6 @@ namespace SmartBoat.Shared.Authentication
         public string City { get; set; }
 
         public string Email { get; set; }
+        public string UserName { get; set; }
     }
 }
