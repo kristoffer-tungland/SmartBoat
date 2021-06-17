@@ -26,7 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Clients\" />
-    <Folder Include="Services\" />
+    <Folder Include="Extensions\" />
     <Folder Include="Providers\" />
     <Folder Include="Handlers\" />
   </ItemGroup>

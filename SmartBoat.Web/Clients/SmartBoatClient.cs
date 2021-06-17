@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using SmartBoat.Shared.Models;
+using SmartBoat.Web.Services;
 
 namespace SmartBoat.Web.Clients
 {
@@ -17,14 +18,15 @@ namespace SmartBoat.Web.Clients
 
     public class SmartBoatClient : ISmartBoatClient
     {
+        private readonly ITokenService _tokenService;
         public HttpClient Client { get; }
 
-        public SmartBoatClient(HttpClient client)
+        public SmartBoatClient(HttpClient client, ITokenService tokenService)
         {
+            _tokenService = tokenService;
             client.BaseAddress = new Uri("https://localhost:5001");
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("User-Agent", "SmartBoat.Web");
-
             Client = client;
         }
 

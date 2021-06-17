@@ -3,18 +3,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using SmartBoat.Shared.Authentication;
 
 namespace SmartBoat.Web.Handlers
 {
     public class AuthenticationHttpMessageHandler : DelegatingHandler
     {
-        private readonly ProtectedLocalStorage protectedLocalStorage;
 
-        public AuthenticationHttpMessageHandler(ProtectedLocalStorage protectedLocalStorage)
+        public AuthenticationHttpMessageHandler()
         {
-            this.protectedLocalStorage = protectedLocalStorage;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(
@@ -23,14 +20,14 @@ namespace SmartBoat.Web.Handlers
         {
             try
             {
-                var token = await protectedLocalStorage.GetAsync<string>(nameof(LoginResponse.Token));
+                //var token = await _protectedLocalStorage.GetAsync<string>(nameof(LoginResponse.Token));
 
-                if (token.Success)
-                {
-                    Console.WriteLine("Token: " + token);
-                    request.Headers.Authorization =
-                                        new AuthenticationHeaderValue("Bearer", token.Value);
-                }
+                //if (token.Success)
+                //{
+                //    Console.WriteLine("Token: " + token);
+                //    request.Headers.Authorization =
+                //                        new AuthenticationHeaderValue("Bearer", token.Value);
+                //}
             }
             catch (Exception e)
             {
